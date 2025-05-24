@@ -83,7 +83,7 @@ function convertMs(ms) {
 
 btn.addEventListener('click', onClick);
 function onClick() {
-  input.setAttribute('disabled', true);
+  fp.set('disable', true);
     intervalId = setInterval(() => {
         const currentTime = Date.now();
         const diffMs = userSelectedDate - currentTime;
