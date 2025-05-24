@@ -98,7 +98,7 @@ function onClick() {
 
         if (diffMs < 1000) {
             clearInterval(intervalId);
-            input.removeAttribute('disabled'); 
+            fp.set('disable', false); 
             // btn.setAttribute('disabled', true);
         }
    
