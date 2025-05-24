@@ -28,22 +28,24 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-      ;
+    ;
 
-      if (Date.now() < selectedDates[0]) {
-          userSelectedDate = selectedDates[0];
-          btn.removeAttribute('disabled');
-      }
-      else {
-          iziToast.info({
-            title: 'Error',
-            message: 'Please choose a date in the future',
-            position: 'topRight' 
-});
-       
-      }
-  },
-};
+    if (selectedDates[0] <= Date.now()) {
+      iziToast.error({
+        title: 'Error',
+        message: 'Please choose a date in the future',
+        position: 'topRight',
+      });
+      btn.disabled = true;
+    } else {
+      btn.disabled = false;
+      userSelectedDate = selectedDates[0];
+      input.disabled = false;
+    }
+  }
+}
+
+
 flatpickr(input, options);
 
 
@@ -81,7 +83,7 @@ function convertMs(ms) {
 
 btn.addEventListener('click', onClick);
 function onClick() {
-    //const initDate = ;
+  input.setAttribute('disabled', true);
     intervalId = setInterval(() => {
         const currentTime = Date.now();
         const diffMs = userSelectedDate - currentTime;
@@ -96,7 +98,8 @@ function onClick() {
 
         if (diffMs < 1000) {
             clearInterval(intervalId);
-            btn.removeAttribute('disabled'); 
+            input.removeAttribute('disabled'); 
+            // btn.setAttribute('disabled', true);
         }
    
     }, 1000)
